@@ -6,9 +6,11 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/argoproj/argocd-example-apps  # จะเปลี่ยนเป็น repo จริงทีหลัง
+    repoURL: https://github.com/argoproj/argocd-example-apps
     targetRevision: HEAD
     path: guestbook
+  # TODO: เปลี่ยน repoURL เป็น repo ของเราหลัง gh auth login
+  # repoURL: https://github.com/<your-username>/learn-argocd-git
   destination:
     server: https://kubernetes.default.svc
     namespace: guestbook
