@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/argoproj/argocd-example-apps  # จะเปลี่ยนเป็น repo จริงทีหลัง
+    targetRevision: HEAD
+    path: guestbook
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: guestbook
+  syncPolicy:
+    automated:
+      prune: true       # ลบ resource ที่ไม่อยู่ใน git แล้ว
+      selfHeal: true    # sync กลับถ้ามีคนแก้ตรง cluster
+    syncOptions:
+    - CreateNamespace=true
