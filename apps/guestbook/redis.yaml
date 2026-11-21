@@ -30,3 +30,16 @@ spec:
   ports:
   - port: 6379
     targetPort: 6379
+---
+# follower service ชี้มาที่ redis-leader เดียวกัน (single-node สำหรับ dev)
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-follower
+  namespace: guestbook
+spec:
+  selector:
+    app: redis-leader
+  ports:
+  - port: 6379
+    targetPort: 6379
