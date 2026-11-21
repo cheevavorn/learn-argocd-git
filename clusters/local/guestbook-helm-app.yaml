@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook-helm
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/cheevavorn/learn-argocd-git
+    targetRevision: HEAD
+    path: charts/guestbook        # ชี้ไปที่ Helm chart directory
+    helm:
+      releaseName: guestbook
+      values: |                   # override values ตรงนี้ได้เลย ไม่ต้องแก้ values.yaml
+        replicaCount: 2
+        image:
+          tag: v5
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: guestbook-helm     # แยก namespace ไม่ชนกับ guestbook เดิม
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
