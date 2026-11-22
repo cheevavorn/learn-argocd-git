@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-post-upgrade
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": post-upgrade,post-install
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: post-upgrade
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          echo "=== Post-upgrade check ==="
+          echo "Deploy สำเร็จ: {{ .Release.Name }} v{{ .Chart.AppVersion }}"
+          echo "=== Done ==="

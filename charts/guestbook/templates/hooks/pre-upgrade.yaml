@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-pre-upgrade
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: pre-upgrade
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          echo "=== Pre-upgrade check ==="
+          echo "Release  : {{ .Release.Name }}"
+          echo "Namespace: {{ .Release.Namespace }}"
+          echo "Version  : {{ .Chart.AppVersion }}"
+          echo "=== Ready to upgrade ==="
