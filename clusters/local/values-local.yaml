@@ -3,6 +3,12 @@ replicaCount: 1
 service:
   exposeExternal: true
 
+redis:
+  image:
+    registry: registry-1.docker.io
+    repository: bitnamicharts/redis
+    tag: 7.4.3-debian-12-r0
+
 env:
 - name: APP_ENV
   value: "local"
