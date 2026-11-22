@@ -9,4 +9,8 @@ spec:
   ports:
   - port: {{ .Values.service.port }}
     targetPort: 80
-  type: {{ .Values.service.type }}
+  {{- if .Values.service.exposeExternal }}
+  type: LoadBalancer
+  {{- else }}
+  type: ClusterIP
+  {{- end }}

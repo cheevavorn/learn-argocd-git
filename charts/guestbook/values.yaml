@@ -7,6 +7,7 @@ image:
 service:
   type: LoadBalancer
   port: 8888
+  exposeExternal: true
 
 redis:
   image: redis:7
