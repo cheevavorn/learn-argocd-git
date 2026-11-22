@@ -10,7 +10,13 @@ service:
   exposeExternal: true
 
 redis:
-  image: redis:7
+  architecture: standalone     # ใช้ single node ไม่ใช่ cluster
+  auth:
+    enabled: false             # ปิด password สำหรับ dev
+  master:
+    service:
+      ports:
+        redis: 6379
 
 env:
   - name: APP_ENV
