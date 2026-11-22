@@ -3,9 +3,11 @@ kind: Service
 metadata:
   name: guestbook-ui
   namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "guestbook.labels" . | nindent 4 }}
 spec:
   selector:
-    app: guestbook-ui
+    {{- include "guestbook.selectorLabels" . | nindent 4 }}
   ports:
   - port: {{ .Values.service.port }}
     targetPort: 80
