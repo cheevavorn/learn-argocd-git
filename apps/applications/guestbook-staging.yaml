@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook-staging
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/cheevavorn/learn-argocd-git
+    targetRevision: HEAD
+    path: charts/guestbook
+    helm:
+      releaseName: guestbook
+      valueFiles:
+      - ../../clusters/staging/values-staging.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: guestbook-staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

@@ -1,0 +1,10 @@
+replicaCount: 5
+
+service:
+  exposeExternal: false
+
+env:
+- name: APP_ENV
+  value: "production"
+- name: LOG_LEVEL
+  value: "warn"

@@ -1,0 +1,10 @@
+replicaCount: 1
+
+service:
+  exposeExternal: true
+
+env:
+- name: APP_ENV
+  value: "local"
+- name: LOG_LEVEL
+  value: "debug"
