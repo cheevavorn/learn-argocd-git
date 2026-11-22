@@ -9,9 +9,16 @@ service:
 
 redis:
   image:
-    registry: registry-1.docker.io
-    repository: bitnamicharts/redis
-    tag: 7.4.3-debian-12-r0
+    registry: docker.io
+    repository: bitnami/redis
+    tag: latest
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    service:
+      ports:
+        redis: 6379
 
 env:
 - name: APP_ENV
